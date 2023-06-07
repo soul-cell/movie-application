@@ -1,7 +1,11 @@
 import pymongo
 
+
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["Movie_app"]
+collection_list = mydb.list_collection_names()
+for collection in collection_list:
+    mydb.drop_collection(collection)
 mycollection = mydb["movie"]
 users = mydb["users"]
 myDoc = [{
