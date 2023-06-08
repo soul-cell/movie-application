@@ -21,10 +21,6 @@ class movie(BaseModel):
     overall_ratings: int = Field(...)
 
 
-class user(BaseModel):
-    name: str = Field(...)
-    age: int = Field(...)
-    watched_movies: list = Field(...)
-    rating: dict = Field(...)
+
 
 
