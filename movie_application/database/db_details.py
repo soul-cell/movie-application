@@ -1,14 +1,14 @@
 import pymongo
 
 
-myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-mydb = myclient["Movie_app"]
+client = pymongo.MongoClient("mongodb://localhost:27017/")
+mydb = client["Movie_app"]
 collection_list = mydb.list_collection_names()
 for collection in collection_list:
     mydb.drop_collection(collection)
-mycollection = mydb["movie"]
-users = mydb["users"]
-myDoc = [{
+movies_collection = mydb["movie"]
+users_collection = mydb["users"]
+movies_doc = [{
 
     "movie_name": "Avengers-Endgame",
     "director": "Anthony Russo",
@@ -74,14 +74,14 @@ myDoc = [{
     "revenue collections": 1517101,
     "overall ratings": 52
 }]
-myusers = [{"name": "thiru", "age": 21, "watched movies": ["Titanic", "Avengers endgame", "Avatar"],
+users_doc = [{"name": "thiru", "age": 21, "watched movies": ["Titanic", "Avengers endgame", "Avatar"],
             "rating": {"Titanic": 65, "Avengers endgame": 87, "Avatar": 75}},
-           {"name": "yokesh", "age": 25, "watched movies": ["Jungle Cruise", "Inception", "Avengers endgame"],
+             {"name": "yokesh", "age": 25, "watched movies": ["Jungle Cruise", "Inception", "Avengers endgame"],
             "rating": {"Jungle Cruise": 43, "Inception": 89, "Avengers endgame": 76},
             }]
 
-mv = users.insert_many(myusers)
-res = mycollection.insert_many(myDoc)
+mv = users_collection.insert_many(users_doc)
+res = movies_collection.insert_many(movies_doc)
 print(res)
-print(myclient.list_database_names())
+print(client.list_database_names())
 print(mv)
