@@ -10,76 +10,75 @@ mycollection = mydb["movie"]
 users = mydb["users"]
 myDoc = [{
 
-    "movie_name": "gentle man",
-    "director": "shankar",
-    "producer": "deva",
-    "cast": {"actor": "arjun", "villian": "b", "supporting roles": "c"},
-    "subtitles": ["english", "tamil", "malayalam", "hindi", "telugu", "chinese"],
-    "languages": ["english", "tamil", "malayalam", "hindi"],
-    "genres": ["horror", "romance"],
-    "status": "hit",
-    "release date": "2/12/2012",
-    "revenue collections": 467547682,
-    "overall ratings":78
-}, {
-
-    "movie_name": "don",
-    "director": "mn",
-    "producer": "s",
-    "cast": {"actor": "shiva", "villian": "jdj", "supporting roles": "shivangi"},
-    "subtitles": ["english", "tamil", "malayalam", "hindi", "telugu", "kannadam"],
-    "languages": ["tamil", "malayalam", "hindi"],
-    "genres": ["action", "romance"],
-    "status":  "flop",
-    "release date": "7/12/2021",
-    "revenue collections": 7353819,
-    "overall ratings":54
-}, {
-
-    "movie_name": "nanban",
-    "director": "fef",
-    "producer": "gd",
-    "cast": {"actor": "vijay", "villian": "fjc", "supporting roles": "jeeva"},
-    "subtitles": ["english", "tamil", "malayalam", "hindi", "telugu", "kannadam", "chinese"],
-    "languages":["english", "tamil", "malayalam", "hindi"],
-    "genres": ["comedy", "romance"],
-    "status": "hit",
-    "release date": "2/2/2022",
-    "revenue collections": 4675476856,
-    "overall ratings":86
-}, {
-
-    "movie_name": "three",
-    "director": "atlee",
-    "producer": "",
-    "cast": {"actor": "eke", "villian": "fjsw", "supporting roles": "eaw"},
+    "movie_name": "Avengers-Endgame",
+    "director": "Anthony Russo",
+    "producer": "Joe Russo",
+    "cast": {"actor": "Robert Downey Jr.", "villian": "Thanos", "supporting roles": "Chris Hemsworth"},
     "subtitles": ["english", "tamil", "malayalam", "hindi", "telugu", "kannadam", "chinese"],
     "languages": ["english", "tamil", "malayalam", "hindi"],
     "genres": ["action", "romance"],
     "status": "hit",
-    "release date": "2/12/2012",
+    "release date": "26/04/2019",
     "revenue collections": 26517181,
-    "overall ratings":75
+    "overall ratings": 84
+}, {
+    "movie_name": "Inception",
+    "director": "Christopher Nolan",
+    "producer": "Tom Berenger",
+    "cast": {"actor": "Tom Hardy", "villian": "Leonardo DiCaprio", "supporting roles": "Elliot Page"},
+    "subtitles": ["english", "tamil", "malayalam", "hindi", "telugu", "kannadam", "chinese"],
+    "languages": ["english", "tamil", "malayalam", "hindi"],
+    "genres": ["action", "thriller"],
+    "status": "flop",
+    "release date": "16/07/2010",
+    "revenue collections": 26517181,
+    "overall ratings": 49
+}, {
+    "movie_name": "Titanic",
+    "director": "James Cameron",
+    "producer": "Bill Paxton",
+    "cast": {"actor": "Leonardo DiCaprio", "villian": "Jonathan Hyde", "supporting roles": "Billy Zane"},
+    "subtitles": ["english", "tamil", "malayalam", "hindi", "telugu", "kannadam", "chinese"],
+    "languages": ["english", "tamil", "malayalam", "hindi"],
+    "genres": ["romance", "action"],
+    "status": "hit",
+    "release date": "20/12/1997",
+    "revenue collections": 26517181,
+    "overall ratings": 79
 
 }, {
 
-    "movie_name": "wf",
-    "director": "d",
-    "producer": "edkv",
-    "cast": {"actor": "swkja", "villian": "mdk", "supporting roles": "djw"},
-    "subtitles": ["english", "tamil", "malayalam", "hindi", "chinese"],
+    "movie_name": "Avatar",
+    "director": "James Cameron",
+    "producer": "Stephen Lang",
+    "cast": {"actor": "Sam Worthington", "villian": "Zoe Saldana", "supporting roles": "Sigourney Weaver"},
+    "subtitles": ["english", "tamil", "malayalam", "hindi", "telugu", "kannadam", "chinese"],
     "languages": ["english", "tamil", "malayalam", "hindi"],
-    "genres": ["comedy", "romance"],
-    "status":"flop",
-    "release date": "19/7/2023",
-    "revenue collections": 67547682,
-    "overall ratings":53
+    "genres": ["action", "romance"],
+    "status": "hit",
+    "release date": "10/12/2009",
+    "revenue collections": 26517181,
+    "overall ratings": 78
+
+}, {
+    "movie_name": "Jungle Cruise,",
+    "director": "Jaume Collet-Serra",
+    "producer": "John Requa",
+    "cast": {"actor": "Dwayne Douglas Johnson", "villian": "Paul Edward Valentine",
+             "supporting roles": "James Newton Howard"},
+    "subtitles": ["english", "tamil", "malayalam", "hindi", "telugu", "kannadam", "chinese"],
+    "languages": ["english", "tamil", "malayalam", "hindi"],
+    "genres": ["adventure", "romance"],
+    "status": "flop",
+    "release date": "24/07/2021",
+    "revenue collections": 1517101,
+    "overall ratings": 52
 }]
-myusers = [{"name": "thiru", "age": 21, "watched movies": ["three", "nanban", "don"],
-            "rating": {"three": 65, "nanban": 87, "don": 35}},
-           {"name": "yokesh", "age": 25, "watched movies": ["wf", "gentleman", "don"],
-            "rating": {"wf": 43, "gentleman": 89, "don": 46},
-          }]
+myusers = [{"name": "thiru", "age": 21, "watched movies": ["Titanic", "Avengers endgame", "Avatar"],
+            "rating": {"Titanic": 65, "Avengers endgame": 87, "Avatar": 75}},
+           {"name": "yokesh", "age": 25, "watched movies": ["Jungle Cruise", "Inception", "Avengers endgame"],
+            "rating": {"Jungle Cruise": 43, "Inception": 89, "Avengers endgame": 76},
+            }]
 
 mv = users.insert_many(myusers)
 res = mycollection.insert_many(myDoc)
