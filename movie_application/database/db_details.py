@@ -18,9 +18,9 @@ movies_doc = [{
     "languages": ["english", "tamil", "malayalam", "hindi"],
     "genres": ["action", "romance"],
     "status": "hit",
-    "release date": "26/04/2019",
-    "revenue collections": 26517181,
-    "overall ratings": 84
+    "release_date": "26/04/2019",
+    "revenue_collections": 26517181,
+    "overall_ratings": 84
 }, {
     "movie_name": "Inception",
     "director": "Christopher Nolan",
@@ -30,9 +30,9 @@ movies_doc = [{
     "languages": ["english", "tamil", "malayalam", "hindi"],
     "genres": ["action", "thriller"],
     "status": "flop",
-    "release date": "16/07/2010",
-    "revenue collections": 26517181,
-    "overall ratings": 49
+    "release_date": "16/07/2010",
+    "revenue_collections": 26517181,
+    "overall_ratings": 49
 }, {
     "movie_name": "Titanic",
     "director": "James Cameron",
@@ -42,9 +42,9 @@ movies_doc = [{
     "languages": ["english", "tamil", "malayalam", "hindi"],
     "genres": ["romance", "action"],
     "status": "hit",
-    "release date": "20/12/1997",
-    "revenue collections": 26517181,
-    "overall ratings": 79
+    "release_date": "20/12/1997",
+    "revenue_collections": 26517181,
+    "overall_ratings": 79
 
 }, {
 
@@ -56,9 +56,9 @@ movies_doc = [{
     "languages": ["english", "tamil", "malayalam", "hindi"],
     "genres": ["action", "romance"],
     "status": "hit",
-    "release date": "10/12/2009",
-    "revenue collections": 26517181,
-    "overall ratings": 78
+    "release_date": "10/12/2009",
+    "revenue_collections": 26517181,
+    "overall_ratings": 78
 
 }, {
     "movie_name": "Jungle Cruise,",
@@ -70,13 +70,13 @@ movies_doc = [{
     "languages": ["english", "tamil", "malayalam", "hindi"],
     "genres": ["adventure", "romance"],
     "status": "flop",
-    "release date": "24/07/2021",
-    "revenue collections": 1517101,
-    "overall ratings": 52
+    "release_date": "24/07/2021",
+    "revenue_collections": 1517101,
+    "overall_ratings": 52
 }]
-users_doc = [{"name": "thiru", "age": 21, "watched movies": ["Titanic", "Avengers endgame", "Avatar"],
+users_doc = [{"name": "thiru", "age": 21, "watched_movies": ["Titanic", "Avengers endgame", "Avatar"],
             "rating": {"Titanic": 65, "Avengers endgame": 87, "Avatar": 75}},
-             {"name": "yokesh", "age": 25, "watched movies": ["Jungle Cruise", "Inception", "Avengers endgame"],
+             {"name": "yokesh", "age": 25, "watched_movies": ["Jungle Cruise", "Inception", "Avengers endgame"],
             "rating": {"Jungle Cruise": 43, "Inception": 89, "Avengers endgame": 76},
             }]
 

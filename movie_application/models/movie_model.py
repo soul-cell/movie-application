@@ -8,7 +8,7 @@ class OverallStatus(str, Enum):
 
 
 class Movie(BaseModel):
-    moviename: str = Field(...)
+    movie_name: str = Field(...)
     director: str = Field(...)
     producer: str = Field(...)
     cast: dict = Field(...)

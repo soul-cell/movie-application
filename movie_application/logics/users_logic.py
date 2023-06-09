@@ -19,7 +19,7 @@ def get_all_users():
 
 
 @new_app.post('/search the user')
-def post_user(values: Dict):
+def create_user(values: Dict):
     data = db_initialization.users_collection.find(values)
     return list(data)
 
