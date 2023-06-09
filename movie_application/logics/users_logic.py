@@ -61,3 +61,24 @@ def update_user(user_id: str, value: Dict):
     update = {"$set": value}
     db_initialization.users_collection.update_many(query, update)
     return "Updated Successfully !"
+
+@new_app.post("/")
+def insert_user(info: User):
+    data = info.dict()
+    result = db_initialization.users_collection.insert_one(data)
+    if result:
+        return "Instered user Successfully !"
+    else:
+        return "Failed to insert"
+
+#update
+
+@new_app.put("/")
+def update_user(user_id: str, value: Dict):
+    query = {"_id": ObjectId(user_id)}
+    update = {"$set": value}
+    data = db_initialization.users_collection.update_one(query,update)
+    if data.modified_count > 0:
+        return "Updated user info Successfully !!"
+    else:
+        return "Failed to update"
