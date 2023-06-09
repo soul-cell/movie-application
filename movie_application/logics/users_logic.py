@@ -5,21 +5,56 @@ from typing import Dict
 
 from bson.objectid import ObjectId
 
-pydantic.json.ENCODERS_BY_TYPE[ObjectId]= str
+pydantic.json.ENCODERS_BY_TYPE[ObjectId] = str
 
 new_app = APIRouter()
 
+
 @new_app.get('/')
 def get_all_users():
-    data= db_details.users_collection.find()
+    data = db_details.users_collection.find()
     return list(data)
 
+
 @new_app.post('/search the user')
-def post_user(values:Dict):
+def post_user(values: Dict):
     data = db_details.users_collection.find(values)
     return list(data)
+
 
 @new_app.delete("/delete the user")
 async def delete_user(value: Dict):
     data = db_details.users_collection.find_one_and_delete(value)
     return {"data": []}
+
+
+@new_app.post("/new")
+async def post_data(info: user):
+    data = info.dict()
+    db_details.users_collection.insert_many(data)
+    return "Inserted New User !"
+
+
+# delete a specific user
+
+@new_app.delete("/{id}")
+async def delete_user(id: str):
+    db_details.users_collection.find_one_and_delete({"_id": ObjectId(id)})
+    return "Deleted Succesfully !"
+
+
+# insert a user
+@new_app.post("/insert")
+async def post_data(info: user):
+    data = info.dict()
+    db_details.users_collection.insert_one(data)
+    return "Inserted Successfully !"
+
+# update a user
+
+@new_app.put("/Update")
+def update_user(user_id: str, value: Dict):
+    query = {"_id": ObjectId(user_id)}
+    update = {"$set": value}
+    db_details.users_collection.update_many(query, update)
+    return "Updated Successfully !"
