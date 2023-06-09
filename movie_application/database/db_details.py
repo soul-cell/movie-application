@@ -20,7 +20,7 @@ movies_doc = [{
     "status": "hit",
     "release_date": "26/04/2019",
     "revenue_collections": 26517181,
-    "overall_ratings": 84
+    "overall_ratings": 81.5
 }, {
     "movie_name": "Inception",
     "director": "Christopher Nolan",
@@ -44,7 +44,7 @@ movies_doc = [{
     "status": "hit",
     "release_date": "20/12/1997",
     "revenue_collections": 26517181,
-    "overall_ratings": 79
+    "overall_ratings": 65
 
 }, {
 
@@ -58,7 +58,7 @@ movies_doc = [{
     "status": "hit",
     "release_date": "10/12/2009",
     "revenue_collections": 26517181,
-    "overall_ratings": 78
+    "overall_ratings": 75
 
 }, {
     "movie_name": "Jungle Cruise,",
@@ -72,12 +72,12 @@ movies_doc = [{
     "status": "flop",
     "release_date": "24/07/2021",
     "revenue_collections": 1517101,
-    "overall_ratings": 52
+    "overall_ratings": 43
 }]
 users_doc = [{"name": "thiru", "age": 21, "watched_movies": ["Titanic", "Avengers endgame", "Avatar"],
             "rating": {"Titanic": 65, "Avengers endgame": 87, "Avatar": 75}},
              {"name": "yokesh", "age": 25, "watched_movies": ["Jungle Cruise", "Inception", "Avengers endgame"],
-            "rating": {"Jungle Cruise": 43, "Inception": 89, "Avengers endgame": 76},
+            "rating": {"Jungle Cruise": 43, "Inception": 49, "Avengers endgame": 76},
             }]
 
 mv = users_collection.insert_many(users_doc)
