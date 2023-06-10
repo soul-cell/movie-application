@@ -46,7 +46,6 @@ id_list = []
 def delete_movie(ids: list):
     for i in ids:
         result = db_initialization.movies_collection.find_one_and_delete({"_id": ObjectId(i)})
-        print(result)
         if result:
             id_list.append(i)
         else:
