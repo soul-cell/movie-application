@@ -12,8 +12,8 @@ new_app = APIRouter()
 
 @new_app.post('/search')
 def read_movie(values: Dict):
-    data = db_initialization.movies_collection.find(values)
-    return list(data)
+    data = list(db_initialization.movies_collection.find(values))
+    return data
 
 
 @new_app.post('/insert')
@@ -21,7 +21,8 @@ def insert_movie(info: Movie):
     data = info.dict()
     result = db_initialization.movies_collection.insert_one(data)
     if result:
-        return "data successfully inserted"
+        data_get = read_movie({"_id": result.inserted_id})
+        return data_get
     else:
         return "insertion failed"
 
@@ -30,9 +31,9 @@ def insert_movie(info: Movie):
 def update_movie(movie_id: str, value: Dict):
     query = {"_id": ObjectId(movie_id)}
     update = {"$set": value}
-    data = db_initialization.movies_collection.update_one(query, update)
-    if data.modified_count > 0:
-        return "updated successfully"
+    data = db_initialization.movies_collection.find_one_and_update(query, update, return_document=True)
+    if data:
+        return data
     else:
         return "updating failed"
 
@@ -50,8 +51,8 @@ def delete_movie(ids: list):
             id_list.append(i)
         else:
             non_deleted.append(i)
-    if non_deleted :
-        return non_deleted
-    else:
-        return "successfully deleted"
+    if non_deleted:
+        return "non deleted ids:", non_deleted, "deleted ids:", id_list
 
+    else:
+        return f"successfully deleted and deleted ids are{id_list} non deleted ids are{non_deleted}"
