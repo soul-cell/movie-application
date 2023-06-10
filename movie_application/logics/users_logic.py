@@ -11,18 +11,21 @@ pydantic.json.ENCODERS_BY_TYPE[ObjectId] = str
 
 user_app = APIRouter()
 
-#search a user
+
+# search a user
 
 @user_app.post('/search')
-def read_user(value:Dict):
+def read_user(value: Dict):
     data = db_initialization.users_collection.find(value)
     return list(data)
+
 
 # insert a user
 @user_app.post("/insert")
 def insert_user(info: User):  # todo change the function name
     data = info.dict()
-    result=db_initialization.users_collection.insert_one(data)  # check if insert operation is successfull befor returning successfull
+    result = db_initialization.users_collection.insert_one(
+        data)  # check if insert operation is successfull befor returning successfull
     if result:
         return "Inserted successfully"
     else:
@@ -41,14 +44,17 @@ def update_user(user_id: str, value: Dict):
     else:
         return "Failed to Update"
 
+
 # delete a specific user
 
-non_deleted=[]
-id_list=[]
+non_deleted = []
+id_list = []
+
+
 @user_app.delete("/")
-def delete_user(ids:list):
+def delete_user(ids: list):
     for j in ids:
-        result=db_initialization.users_collection.find_one_and_delete({"_id":ObjectId(j)})
+        result = db_initialization.users_collection.find_one_and_delete({"_id": ObjectId(j)})
         if result:
             id_list.append(j)
         else:

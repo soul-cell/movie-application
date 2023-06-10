@@ -16,8 +16,8 @@ def read_movie(values: Dict):
     return list(data)
 
 
-@new_app.post("/")
-def insert_data(info: Movie):
+@new_app.post('/insert')
+def insert_movie(info: Movie):
     data = info.dict()
     result = db_initialization.movies_collection.insert_one(data)
     if result:
@@ -54,3 +54,4 @@ def delete_movie(ids: list):
         return non_deleted
     else:
         return "successfully deleted"
+

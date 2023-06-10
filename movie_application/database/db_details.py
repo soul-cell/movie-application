@@ -1,6 +1,5 @@
 import pymongo
 
-
 client = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = client["Movie_app"]
 collection_list = mydb.list_collection_names()
@@ -74,14 +73,18 @@ movies_doc = [{
     "revenue_collections": 1517101,
     "overall_ratings": 43
 }]
-users_doc = [{"name": "thiru", "age": 21, "watched_movies": ["Titanic", "Avengers endgame", "Avatar"],
-            "rating": {"Titanic": 65, "Avengers endgame": 87, "Avatar": 75}},
-             {"name": "yokesh", "age": 25, "watched_movies": ["Jungle Cruise", "Inception", "Avengers endgame"],
-            "rating": {"Jungle Cruise": 43, "Inception": 49, "Avengers endgame": 76},
-            }]
+movie_ids = movies_collection.insert_many(movies_doc)
 
-mv = users_collection.insert_many(users_doc)
-res = movies_collection.insert_many(movies_doc)
-print(res)
+users_doc = [{"name": "thiru", "age": 21,
+              "watched_movies": [movie_ids.inserted_ids[2], movie_ids.inserted_ids[0], movie_ids.inserted_ids[3]],
+              "rating": {"Titanic": 65, "Avengers endgame": 87, "Avatar": 75}},
+             {"name": "yokesh", "age": 25,
+              "watched_movies": [movie_ids.inserted_ids[4], movie_ids.inserted_ids[1], movie_ids.inserted_ids[0]],
+              "rating": {"Jungle Cruise": 43, "Inception": 49, "Avengers endgame": 76},
+              }]
+
+user_ids = users_collection.insert_many(users_doc)
+
+print(movie_ids)
 print(client.list_database_names())
-print(mv)
+print(user_ids)
