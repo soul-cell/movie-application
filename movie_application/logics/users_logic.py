@@ -27,7 +27,8 @@ def insert_user(info: User):  # todo change the function name
     result = db_initialization.users_collection.insert_one(
         data)  # check if insert operation is successfull befor returning successfull
     if result:
-        return "Inserted successfully"
+        get_data = read_user({"_id": result.inserted_id})
+        return get_data
     else:
         return "Insertion failed"
 
@@ -38,9 +39,9 @@ def insert_user(info: User):  # todo change the function name
 def update_user(user_id: str, value: Dict):
     query = {"_id": ObjectId(user_id)}
     update = {"$set": value}
-    data = db_initialization.users_collection.update_one(query, update)
-    if data.modified_count > 0:
-        return "Updated user info Successfully !!"
+    data = db_initialization.users_collection.find_one_and_update(query, update, return_document=True)
+    if data:
+        return data
     else:
         return "Failed to Update"
 
@@ -60,6 +61,6 @@ def delete_user(ids: list):
         else:
             non_deleted.append(j)
     if non_deleted:
-        return non_deleted
+        return "non deleted ids:", non_deleted, "deleted ids:", id_list
     else:
-        return "Deleted the User Successfully !"
+        return f"successfully deleted and deleted ids are{id_list} non deleted ids are{non_deleted}"
