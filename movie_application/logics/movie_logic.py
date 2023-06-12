@@ -4,6 +4,7 @@ from pydantic import json
 from typing import Dict, Optional
 from movie_application.models.movie_model import Movie
 from bson.objectid import ObjectId
+from movie_application.logics.users_logic import read_user
 
 json.ENCODERS_BY_TYPE[ObjectId] = str
 
@@ -57,7 +58,7 @@ def delete_movie(ids: list):
 
 @new_app.post('/filter')
 def filter_movies(
-        category:Optional[list[str]] = Query(None),
+        category: Optional[list[str]] = Query(None),
         ratings: int = None,
         director: str = None,
         producer: str = None,
@@ -67,7 +68,7 @@ def filter_movies(
 ):
     query = {}
     if category:
-        query1 = {"genres":{"$in": category}}
+        query1 = {"genres": {"$in": category}}
         query.update(query1)
     if ratings:
         query2 = {"overall_ratings": {"$gt": ratings}}
@@ -85,8 +86,18 @@ def filter_movies(
         query6 = {"languages": {"$in": language}}
         query.update(query6)
     if subtitles:
-        query7 = {"subtitles":{"$in": subtitles}}
+        query7 = {"subtitles": {"$in": subtitles}}
         query.update(query7)
     print(query)
     data = read_movie(query)
+    return data
+
+
+@new_app.post("/insert filter")
+def update_details(movie_id: str, user_id: str):
+    result = list(db_initialization.users_collection.find({"_id": ObjectId(user_id)}, {"_id": False, "watched_movies": True}))
+    result[0]["watched_movies"].append(ObjectId(movie_id))
+    query = {"_id": ObjectId(user_id)}
+    update = {"$set": result[0]}
+    data = db_initialization.users_collection.update_one(query, update)
     return data

@@ -24,8 +24,7 @@ def read_user(value: Dict):
 @user_app.post("/insert")
 def insert_user(info: User):  # todo change the function name
     data = info.dict()
-    result = db_initialization.users_collection.insert_one(
-        data)  # check if insert operation is successfull befor returning successfull
+    result = db_initialization.users_collection.insert_one(data)
     if result:
         get_data = read_user({"_id": result.inserted_id})
         return get_data
@@ -34,6 +33,7 @@ def insert_user(info: User):  # todo change the function name
 
 
 # update a user
+
 
 @user_app.put("/")
 def update_user(user_id: str, value: Dict):
@@ -62,3 +62,36 @@ def delete_user(ids: list):
         return "non deleted ids:", non_deleted, "deleted ids:", id_list
     else:
         return f"successfully deleted and deleted ids are{id_list} non deleted ids are{non_deleted}"
+
+
+def find_average(movie_id, new_rating, function):
+    x = list(
+        db_initialization.movies_collection.find({"_id": ObjectId(movie_id)}, {"_id": False, "overall_ratings": True}))
+    x1 = list(x[0]["overall_ratings"].keys())
+    x2 = list(x[0]["overall_ratings"].values())
+
+    if function == "remove":
+        new_avg = ((x2[0] * float(x1[0])) - new_rating) / (x2[0] - 1)
+        if new_avg >= 60:
+            query = {"$set":{"status": "hit", "overall_ratings": {str(new_avg): x2[0] - 1}}}
+            db_initialization.movies_collection.update_one({"_id": ObjectId(movie_id)}, query)
+            return "success"
+        else:
+            query = {"$set":{"status": "flop", "overall_ratings": {str(new_avg): x2[0] - 1}}}
+            db_initialization.movies_collection.update_one({"_id": ObjectId(movie_id)}, query)
+            return "success"
+
+    if function == "add":
+        new_avg = ((x2[0] * float(x1[0])) + new_rating) / (x2[0] + 1)
+        if new_avg >= 60:
+            query = {"$set": {"status": "hit", "overall_ratings": {str(new_avg): x2[0] + 1}}}
+
+            db_initialization.movies_collection.update_one({"_id": ObjectId(movie_id)}, query)
+            return "success"
+        else:
+            query = {"$set": {"status": "flop", "overall_ratings": {str(new_avg): x2[0] + 1}}}
+            db_initialization.movies_collection.update_one({"_id": ObjectId(movie_id)}, query)
+            return "success"
+
+
+print(find_average("6487088522fbe63afc2aafb2", 65, function="remove"))

@@ -19,7 +19,7 @@ movies_doc = [{
     "status": "hit",
     "release_date": "26/04/2019",
     "revenue_collections": 26517181,
-    "overall_ratings": 81.5
+    "overall_ratings": {"81.5": 2}
 }, {
     "movie_name": "Inception",
     "director": "Christopher Nolan",
@@ -31,7 +31,7 @@ movies_doc = [{
     "status": "flop",
     "release_date": "16/07/2010",
     "revenue_collections": 26517181,
-    "overall_ratings": 49
+    "overall_ratings": {"49": 1}
 }, {
     "movie_name": "Titanic",
     "director": "James Cameron",
@@ -43,7 +43,7 @@ movies_doc = [{
     "status": "hit",
     "release_date": "20/12/1997",
     "revenue_collections": 26517181,
-    "overall_ratings": 65
+    "overall_ratings": {"65": 1}
 
 }, {
 
@@ -57,7 +57,7 @@ movies_doc = [{
     "status": "hit",
     "release_date": "10/12/2009",
     "revenue_collections": 26517181,
-    "overall_ratings": 75
+    "overall_ratings": {"75": 1}
 
 }, {
     "movie_name": "Jungle Cruise,",
@@ -71,16 +71,18 @@ movies_doc = [{
     "status": "flop",
     "release_date": "24/07/2021",
     "revenue_collections": 1517101,
-    "overall_ratings": 43
+    "overall_ratings": {"43": 1}
 }]
 movie_ids = movies_collection.insert_many(movies_doc)
 
 users_doc = [{"name": "thiru", "age": 21,
               "watched_movies": [movie_ids.inserted_ids[2], movie_ids.inserted_ids[0], movie_ids.inserted_ids[3]],
-              "rating": {str(movie_ids.inserted_ids[2]): 65, str(movie_ids.inserted_ids[0]): 87, str(movie_ids.inserted_ids[3]): 75}},
+              "rating": {str(movie_ids.inserted_ids[2]): 65, str(movie_ids.inserted_ids[0]): 87,
+                         str(movie_ids.inserted_ids[3]): 75}},
              {"name": "yokesh", "age": 25,
               "watched_movies": [movie_ids.inserted_ids[4], movie_ids.inserted_ids[1], movie_ids.inserted_ids[0]],
-              "rating": {str(movie_ids.inserted_ids[4]): 43, str(movie_ids.inserted_ids[1]): 49, str(movie_ids.inserted_ids[0]): 76},
+              "rating": {str(movie_ids.inserted_ids[4]): 43, str(movie_ids.inserted_ids[1]): 49,
+                         str(movie_ids.inserted_ids[0]): 76},
               }]
 
 user_ids = users_collection.insert_many(users_doc)
