@@ -48,12 +48,10 @@ def update_user(user_id: str, value: Dict):
 
 # delete a specific user
 
-non_deleted = []
-id_list = []
-
-
 @user_app.delete("/")
 def delete_user(ids: list):
+    non_deleted = []
+    id_list = []
     for j in ids:
         result = db_initialization.users_collection.find_one_and_delete({"_id": ObjectId(j)})
         if result:
