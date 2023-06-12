@@ -77,10 +77,10 @@ movie_ids = movies_collection.insert_many(movies_doc)
 
 users_doc = [{"name": "thiru", "age": 21,
               "watched_movies": [movie_ids.inserted_ids[2], movie_ids.inserted_ids[0], movie_ids.inserted_ids[3]],
-              "rating": {"Titanic": 65, "Avengers endgame": 87, "Avatar": 75}},
+              "rating": {str(movie_ids.inserted_ids[2]): 65, str(movie_ids.inserted_ids[0]): 87, str(movie_ids.inserted_ids[3]): 75}},
              {"name": "yokesh", "age": 25,
               "watched_movies": [movie_ids.inserted_ids[4], movie_ids.inserted_ids[1], movie_ids.inserted_ids[0]],
-              "rating": {"Jungle Cruise": 43, "Inception": 49, "Avengers endgame": 76},
+              "rating": {str(movie_ids.inserted_ids[4]): 43, str(movie_ids.inserted_ids[1]): 49, str(movie_ids.inserted_ids[0]): 76},
               }]
 
 user_ids = users_collection.insert_many(users_doc)

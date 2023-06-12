@@ -1,7 +1,7 @@
 from movie_application.database import db_initialization
-from fastapi import APIRouter
+from fastapi import APIRouter, Query
 from pydantic import json
-from typing import Dict
+from typing import Dict, Optional
 from movie_application.models.movie_model import Movie
 from bson.objectid import ObjectId
 
@@ -38,12 +38,10 @@ def update_movie(movie_id: str, value: Dict):
         return "updating failed"
 
 
-non_deleted = []
-id_list = []
-
-
 @new_app.delete("/")
 def delete_movie(ids: list):
+    non_deleted = []
+    id_list = []
     for i in ids:
         result = db_initialization.movies_collection.find_one_and_delete({"_id": ObjectId(i)})
         if result:
@@ -54,4 +52,41 @@ def delete_movie(ids: list):
         return "non deleted ids:", non_deleted, "deleted ids:", id_list
 
     else:
-        return f"successfully deleted and deleted ids are{id_list} non deleted ids are{non_deleted}"
+        return f"successfully deleted and deleted ids are{id_list}"
+
+
+@new_app.post('/filter')
+def filter_movies(
+        category: str = None,
+        ratings: int = None,
+        director: str = None,
+        producer: str = None,
+        release_date: str = None,
+        language: Optional[list[str]] = Query(None),
+        subtitles: Optional[list[str]] = Query(None)
+):
+    query = []
+    if category:
+        query1 = {"genres": category}
+        query.append(query1)
+    if ratings:
+        query2 = {"overall_ratings": {"$gt": ratings}}
+        query.append(query2)
+    if director:
+        query3 = {"director": director}
+        query.append(query3)
+    if producer:
+        query4 = {"producer": producer}
+        query.append(query4)
+    if release_date:
+        query5 = {"release_date": release_date}
+        query.append(query5)
+    if language:
+        query6 = {"languages": language}
+        query.append(query6)
+    if subtitles:
+        query7 = {"subtitles": subtitles}
+        query.append(query7)
+    print(query)
+    data = read_movie({"$and": query})
+    return data
