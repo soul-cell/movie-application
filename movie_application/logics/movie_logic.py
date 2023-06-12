@@ -57,7 +57,7 @@ def delete_movie(ids: list):
 
 @new_app.post('/filter')
 def filter_movies(
-        category: str = None,
+        category:Optional[list[str]] = Query(None),
         ratings: int = None,
         director: str = None,
         producer: str = None,
@@ -65,28 +65,28 @@ def filter_movies(
         language: Optional[list[str]] = Query(None),
         subtitles: Optional[list[str]] = Query(None)
 ):
-    query = []
+    query = {}
     if category:
-        query1 = {"genres": category}
-        query.append(query1)
+        query1 = {"genres":{"$in": category}}
+        query.update(query1)
     if ratings:
         query2 = {"overall_ratings": {"$gt": ratings}}
-        query.append(query2)
+        query.update(query2)
     if director:
         query3 = {"director": director}
-        query.append(query3)
+        query.update(query3)
     if producer:
         query4 = {"producer": producer}
-        query.append(query4)
+        query.update(query4)
     if release_date:
         query5 = {"release_date": release_date}
-        query.append(query5)
+        query.update(query5)
     if language:
-        query6 = {"languages": language}
-        query.append(query6)
+        query6 = {"languages": {"$in": language}}
+        query.update(query6)
     if subtitles:
-        query7 = {"subtitles": subtitles}
-        query.append(query7)
+        query7 = {"subtitles":{"$in": subtitles}}
+        query.update(query7)
     print(query)
-    data = read_movie({"$and": query})
+    data = read_movie(query)
     return data
