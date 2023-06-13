@@ -14,6 +14,9 @@ new_app = APIRouter()
 
 @new_app.post('/search')
 def read_movie(values: Dict):
+    if "_id" in values.keys():
+        values["_id"]=ObjectId(values["_id"])
+        data =list(db_initialization.movies_collection.find(values))
     data = list(db_initialization.movies_collection.find(values))
     return data
 
