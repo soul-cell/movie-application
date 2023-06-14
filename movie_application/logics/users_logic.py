@@ -67,7 +67,7 @@ def delete_user(ids: list):
             for movie, rating in d1.items():
                 find_average(movie, rating, function="remove")
             db_initialization.users_collection.find_one_and_delete({"_id": ObjectId(i)})
-        return "sucessfully deleted"
+        return f"sucessfully deleted{ids}"
     else:
         return "deletion failed"
 
