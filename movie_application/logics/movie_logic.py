@@ -67,8 +67,8 @@ def filter_movies(
         director: str = None,
         producer: str = None,
         release_date: str = None,
-        language: Optional[list[str]] = Query(None),
-        subtitles: Optional[list[str]] = Query(None)
+        language: Optional[list] = Query(None),
+        subtitles: Optional[list] = Query(None)
 ):
     query = {}
     if category:

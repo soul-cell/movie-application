@@ -89,31 +89,31 @@ def update_details(movie_id: str, user_id: str, rating: int):
 def find_average(movie_id: str, new_rating: int, function: str):
     x = list(
         db_initialization.movies_collection.find({"_id": ObjectId(movie_id)}, {"_id": False, "overall_ratings": True}))
-    x1 = list(x[0]["overall_ratings"].keys())
-    x2 = list(x[0]["overall_ratings"].values())
+    rate = list(x[0]["overall_ratings"].keys())
+    count = list(x[0]["overall_ratings"].values())
 
     if function == "remove":
-        if x2[0] > 1:
-            new_avg = ((x2[0] * float(x1[0])) - new_rating) / (x2[0] - 1)
-        if x2[0] == 1:
+        if count[0] > 1:
+            new_avg = ((count[0] * float(rate[0])) - new_rating) / (count[0] - 1)
+        if count[0] == 1:
             new_avg = 0
         if new_avg >= 60:
-            query = {"$set": {"status": "hit", "overall_ratings": {str(new_avg): x2[0] - 1}}}
+            query = {"$set": {"status": "hit", "overall_ratings": {str(new_avg): count[0] - 1}}}
             db_initialization.movies_collection.update_one({"_id": ObjectId(movie_id)}, query)
             return "success"
 
-        query = {"$set": {"status": "flop", "overall_ratings": {str(new_avg): x2[0] - 1}}}
+        query = {"$set": {"status": "flop", "overall_ratings": {str(new_avg): count[0] - 1}}}
         db_initialization.movies_collection.update_one({"_id": ObjectId(movie_id)}, query)
         return "success"
 
     if function == "add":
-        new_avg = ((x2[0] * float(x1[0])) + new_rating) / (x2[0] + 1)
+        new_avg = ((count[0] * float(rate[0])) + new_rating) / (count[0] + 1)
         if new_avg >= 60:
-            query = {"$set": {"status": "hit", "overall_ratings": {str(new_avg): x2[0] + 1}}}
+            query = {"$set": {"status": "hit", "overall_ratings": {str(new_avg): count[0] + 1}}}
 
             db_initialization.movies_collection.update_one({"_id": ObjectId(movie_id)}, query)
             return "success"
 
-        query = {"$set": {"status": "flop", "overall_ratings": {str(new_avg): x2[0] + 1}}}
+        query = {"$set": {"status": "flop", "overall_ratings": {str(new_avg): count[0] + 1}}}
         db_initialization.movies_collection.update_one({"_id": ObjectId(movie_id)}, query)
         return "success"
