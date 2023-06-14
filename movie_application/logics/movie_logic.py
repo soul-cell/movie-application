@@ -6,22 +6,20 @@ from typing import Dict, Optional
 from movie_application.models.movie_model import Movie
 from bson.objectid import ObjectId
 
-
 json.ENCODERS_BY_TYPE[ObjectId] = str
 
 new_app = APIRouter()
 
 
-@new_app.post('/search')
+@new_app.post('/movie/search')
 def read_movie(values: Dict):
     if "_id" in values.keys():
-        values["_id"]=ObjectId(values["_id"])
-        data =list(db_initialization.movies_collection.find(values))
+        values["_id"] = ObjectId(values["_id"])
     data = list(db_initialization.movies_collection.find(values))
     return data
 
 
-@new_app.post('/insert')
+@new_app.post('/movie/insert')
 def insert_movie(info: Movie):
     data = info.dict()
     result = db_initialization.movies_collection.insert_one(data)
@@ -32,8 +30,10 @@ def insert_movie(info: Movie):
         return "insertion failed"
 
 
-@new_app.put("/")
+@new_app.put("/movie/update")
 def update_movie(movie_id: str, value: Dict):
+    if value.get("_id"):
+        return "Not possible to update the id"
     query = {"_id": ObjectId(movie_id)}
     update = {"$set": value}
     data = db_initialization.movies_collection.find_one_and_update(query, update, return_document=True)
@@ -43,7 +43,7 @@ def update_movie(movie_id: str, value: Dict):
         return "updating failed"
 
 
-@new_app.delete("/")
+@new_app.delete("/movie/delete")
 def delete_movie(ids: list):
     non_deleted = []
     id_list = []
@@ -60,10 +60,10 @@ def delete_movie(ids: list):
         return f"successfully deleted and deleted ids are{id_list}"
 
 
-@new_app.post('/filter')
+@new_app.post('movie/filter')
 def filter_movies(
-        category: Optional[list[str]] = Query(None),
-        ratings: int = None,
+        category: Optional[list] = Query(None),
+        ratings: str = None,
         director: str = None,
         producer: str = None,
         release_date: str = None,
@@ -75,6 +75,7 @@ def filter_movies(
         query1 = {"genres": {"$in": category}}
         query.update(query1)
     if ratings:
+        ratings = float(ratings)
         query2 = {"overall_ratings": {"$gt": ratings}}
         query.update(query2)
     if director:
@@ -92,6 +93,20 @@ def filter_movies(
     if subtitles:
         query7 = {"subtitles": {"$in": subtitles}}
         query.update(query7)
-    print(query)
     data = read_movie(query)
     return data
+
+
+@new_app.post('/movie/Sorted_ratings')
+def sort_movie(sorting_order: str):
+    sorting_order = sorting_order.lower()
+
+    if sorting_order == "ascending":
+        data = list(db_initialization.movies_collection.find().sort("overall_ratings", 1))
+        return data
+
+    if sorting_order == "descending":
+        data = list(db_initialization.movies_collection.find().sort("overall_ratings", -1))
+        return data
+    else:
+        return "Provide valid sorting order ascending/descending"

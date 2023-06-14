@@ -1,3 +1,5 @@
+from typing import Dict
+
 from pydantic import BaseModel, Field
 from enum import Enum
 
@@ -19,6 +21,7 @@ class Movie(BaseModel):
     release_date: str = Field(...)
     revenue_collections: int = Field(...)
     overall_ratings: int = Field(...)
+    number_of_ratings: int = Field(...)
 
 
 

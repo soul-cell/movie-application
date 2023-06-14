@@ -19,7 +19,8 @@ movies_doc = [{
     "status": "hit",
     "release_date": "26/04/2019",
     "revenue_collections": 26517181,
-    "overall_ratings": {"81.5": 2}
+    "overall_ratings":81.5,
+    "number_of_ratings":2
 }, {
     "movie_name": "Inception",
     "director": "Christopher Nolan",
@@ -31,7 +32,8 @@ movies_doc = [{
     "status": "flop",
     "release_date": "16/07/2010",
     "revenue_collections": 26517181,
-    "overall_ratings": {"49": 1}
+    "overall_ratings": 49,
+    "number_of_ratings":1
 }, {
     "movie_name": "Titanic",
     "director": "James Cameron",
@@ -43,7 +45,8 @@ movies_doc = [{
     "status": "hit",
     "release_date": "20/12/1997",
     "revenue_collections": 26517181,
-    "overall_ratings": {"65": 1}
+    "overall_ratings": 65,
+    "number_of_ratings":1
 
 }, {
 
@@ -57,7 +60,8 @@ movies_doc = [{
     "status": "hit",
     "release_date": "10/12/2009",
     "revenue_collections": 26517181,
-    "overall_ratings": {"75": 1}
+    "overall_ratings": 75,
+    "number_of_ratings":1
 
 }, {
     "movie_name": "Jungle Cruise,",
@@ -71,7 +75,8 @@ movies_doc = [{
     "status": "flop",
     "release_date": "24/07/2021",
     "revenue_collections": 1517101,
-    "overall_ratings": {"43": 1}
+    "overall_ratings": 43,
+    "number_of_ratings":1
 }]
 movie_ids = movies_collection.insert_many(movies_doc)
 
