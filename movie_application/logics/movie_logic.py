@@ -62,8 +62,8 @@ def delete_movie(ids: list):
 
 @new_app.post('/filter')
 def filter_movies(
-        category: Optional[list] = Query(None),
-        ratings: float = None,
+        category: Optional[list[str]] = Query(None),
+        ratings: int = None,
         director: str = None,
         producer: str = None,
         release_date: str = None,
@@ -71,18 +71,11 @@ def filter_movies(
         subtitles: Optional[list] = Query(None)
 ):
     query = {}
-
     if category:
         query1 = {"genres": {"$in": category}}
         query.update(query1)
     if ratings:
-        ratings_list = []
-        movie_data = list(db_initialization.movies_collection.find({}, {"_id": False, "overall_ratings": True}))
-        for movie in movie_data:
-            for i in movie["overall_ratings"].keys():
-                if float(i) > ratings:
-                    ratings_list.append(movie["overall_ratings"])
-        query2 = {"overall_ratings": {"$in": ratings_list}}
+        query2 = {"overall_ratings": {"$gt": ratings}}
         query.update(query2)
     if director:
         query3 = {"director": director}
