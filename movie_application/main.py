@@ -4,9 +4,9 @@ from movie_application.logics.users_logic import user_app
 
 app = FastAPI()
 
-app.include_router(new_app, tags=["movie"], prefix="/movie")
+app.include_router(new_app, tags=["movie"], prefix="/movie_app")
 
-app.include_router(user_app, tags=["users"], prefix="/users")
+app.include_router(user_app, tags=["users"], prefix="/movie_app")
 
 if __name__ == "__main__":
     import uvicorn

@@ -14,7 +14,7 @@ user_app = APIRouter()
 
 # search a user
 
-@user_app.post('user/search')
+@user_app.post('/user/search')
 def read_user(value: Dict):
     if "_id" in value.keys():
         value["_id"] = ObjectId(value["_id"])
@@ -23,7 +23,7 @@ def read_user(value: Dict):
 
 
 # insert a user
-@user_app.post("user/insert")
+@user_app.post("/user/insert")
 def insert_user(info: User):
     data = info.dict()
     if data["watched_movies"]:
@@ -47,7 +47,7 @@ def insert_user(info: User):
         raise HTTPException(status_code=404, detail="movie not found")
 
 
-@user_app.put("user/update")
+@user_app.put("/user/update")
 def update_user(user_id: str, value: Dict):
     if value.get("_id"):
         return "Cannot update unique Object Id"
@@ -62,7 +62,7 @@ def update_user(user_id: str, value: Dict):
         return "updating failed"
 
 
-@user_app.delete("user/delete")
+@user_app.delete("/user/delete")
 def delete_user(ids: list):
     if ids:
         for i in ids:
@@ -76,13 +76,13 @@ def delete_user(ids: list):
         return "deletion failed"
 
 
-@user_app.put("user/watch_movie")
+@user_app.put("/user/watch_movie")
 def add_movie( rating: Optional[int]=None,movie_id:str=Query(...), user_id:str=Query(...)):
     result = list(
         db_initialization.users_collection.find({"_id": ObjectId(user_id)},
                                                 {"_id": False, "watched_movies": True, "rating": True}))
     if result:
-        if movie_id in  result[0]["watched_movies"]:
+        if movie_id in result[0]["watched_movies"]:
             return "Already watched this movie"
         result[0]["watched_movies"].append(ObjectId(movie_id))
         if rating:

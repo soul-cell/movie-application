@@ -1,4 +1,4 @@
-import movie_application.logics.users_logic
+
 from movie_application.database import db_initialization
 from fastapi import APIRouter, Query
 from pydantic import json
@@ -60,7 +60,7 @@ def delete_movie(ids: list):
         return f"successfully deleted and deleted ids are{id_list}"
 
 
-@new_app.post('movie/filter')
+@new_app.post('/movie/filter')
 def filter_movies(
         category: Optional[list] = Query(None),
         ratings: str = None,
